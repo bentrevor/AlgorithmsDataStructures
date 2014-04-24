@@ -73,4 +73,7 @@ class LinkedList
   def last_node?(node)
     node.next_node.nil?
   end
+
+  def delete(index)
+  end
 end
