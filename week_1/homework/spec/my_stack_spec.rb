@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'my_stack'
 
 describe MyStack do

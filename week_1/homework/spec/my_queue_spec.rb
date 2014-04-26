@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'my_queue'
 
 describe MyQueue do
