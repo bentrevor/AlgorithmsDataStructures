@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'reversable_linked_list'
 
 describe ReversableLinkedList do

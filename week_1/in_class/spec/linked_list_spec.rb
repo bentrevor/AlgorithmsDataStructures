@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'linked_list'
 
 describe LinkedList do
@@ -16,13 +17,13 @@ describe LinkedList do
   end
 
   describe("#prepend") do
-    xit 'prepends nodes to an empty list' do
+    it 'prepends nodes to an empty list' do
       list = LinkedList.new
       list.prepend(0)
       expect(list.head.value).to eq 0
     end
 
-    xit 'prepends multiple nodes' do
+    it 'prepends multiple nodes' do
       list = LinkedList.new
       list.prepend(1)
       list.prepend(0)
@@ -31,8 +32,37 @@ describe LinkedList do
     end
   end
 
+  describe '#length' do
+    it 'counts elements in an empty list' do
+      list = LinkedList.new
+      list.length.should == 0
+    end
+
+    it 'counts elements in a non-empty list' do
+      list = LinkedList.new
+      list.prepend :swag
+      list.length.should == 1
+      list.prepend :yolo
+      list.length.should == 2
+    end
+  end
+
+  describe '#values' do
+    it 'shows nothing for an empty list' do
+      list = LinkedList.new
+      list.values.should == []
+    end
+
+    it 'shows nothing for a non-empty list' do
+      list = LinkedList.new
+      list.prepend :swag
+      list.prepend :yolo
+      list.values.should == [:yolo, :swag]
+    end
+  end
+
   describe("#get") do
-    xit 'gets the value at index n' do
+    it 'gets the value at index n' do
       list = LinkedList.new
       list.prepend(:c)
       list.prepend(:b)
@@ -44,13 +74,13 @@ describe LinkedList do
   end
 
   describe("#append") do
-    xit 'appends a node to empty list' do
+    it 'appends a node to empty list' do
       list = LinkedList.new
       list.append(1)
       expect(list.head.value).to eq 1
     end
 
-    xit 'appends multiple nodes' do
+    it 'appends multiple nodes' do
       list = LinkedList.new
       list.append(1)
       list.append(2)
@@ -61,7 +91,7 @@ describe LinkedList do
 
 
   describe("#insert_before") do
-    xit 'inserts into the middle of a list' do
+    it 'inserts into the middle of a list' do
       list = LinkedList.new
       list.prepend(:end)
       list.prepend(:start)
@@ -71,7 +101,7 @@ describe LinkedList do
       expect(list.head.next_node.next_node.value).to eq :end
     end
 
-    xit 'inserts into the beginning of a list' do
+    it 'inserts into the beginning of a list' do
       list = LinkedList.new
       list.prepend(:initial_start)
       list.insert_before(0, :new_start)
@@ -79,7 +109,7 @@ describe LinkedList do
       expect(list.head.next_node.value).to eq :initial_start
     end
 
-    xit 'fails to insert when out of bounds' do
+    it 'fails to insert when out of bounds' do
       list = LinkedList.new
       expect { list.insert_before(100, :value) }.to raise_error("Out Of Bounds")
     end

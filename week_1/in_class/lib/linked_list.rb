@@ -11,14 +11,61 @@ class LinkedList
   attr_accessor :head
 
   def append(value)
+    if self.head.nil?
+      self.head = Node.new(value)
+    else
+      walk_list do |node|
+        if node.next_node.nil?
+          node.next_node = Node.new(value)
+          return
+        end
+      end
+    end
   end
 
   def get(index)
+    walk_list do |node|
+      return node.value if index == 0
+      index -= 1
+    end
   end
 
   def prepend(value)
+    self.head = Node.new(value, self.head)
+  end
+
+  def length
+    values.length
+  end
+
+  def values
+    values = []
+    walk_list { |node| values << node.value }
+    values
   end
 
   def insert_before(index, value)
+    raise Exception, "Out Of Bounds" if index > length
+    if index == 0
+      prepend(value)
+    else
+      walk_list do |node|
+        if index == 1
+          node.next_node = Node.new(value, node.next_node)
+        end
+        index -= 1
+      end
+    end
+  end
+
+  private
+
+  def walk_list
+    list = self.dup
+
+    until list.head.nil?
+      yield(list.head)
+      list.head = list.head.next_node
+    end
   end
 end
