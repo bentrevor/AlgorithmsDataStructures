@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'sorted_list'
 
 describe SortedLinkedList do
