@@ -11,11 +11,11 @@ class LinkedList
   attr_accessor :head
 
   def append(value)
-    if self.head.nil?
-      self.head = Node.new(value)
+    if head.nil?
+      prepend value
     else
       walk_list do |node|
-        if node.next_node.nil?
+        if last_node?(node)
           node.next_node = Node.new(value)
           return
         end
@@ -31,7 +31,7 @@ class LinkedList
   end
 
   def prepend(value)
-    self.head = Node.new(value, self.head)
+    self.head = Node.new(value, head)
   end
 
   def length
@@ -45,9 +45,10 @@ class LinkedList
   end
 
   def insert_before(index, value)
-    raise Exception, "Out Of Bounds" if index > length
+    raise Exception, "Out Of Bounds" if index > length or index < 0
+
     if index == 0
-      prepend(value)
+      prepend value
     else
       walk_list do |node|
         if index == 1
@@ -67,5 +68,9 @@ class LinkedList
       yield(list.head)
       list.head = list.head.next_node
     end
+  end
+
+  def last_node?(node)
+    node.next_node.nil?
   end
 end
