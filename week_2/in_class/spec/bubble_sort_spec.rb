@@ -1,20 +1,21 @@
 require 'bubble_sort'
 require 'rspec'
+require 'pry'
 
 describe BubbleSort do
-  xit "sorts a single entry" do
+  it "sorts a single entry" do
     bubble_sort = BubbleSort.new([0])
     bubble_sort.tick
     bubble_sort.list.should == [0]
   end
 
-  xit "sorts two elements on one tick" do
+  it "sorts two elements on one tick" do
     bubble_sort = BubbleSort.new([1, 0])
     bubble_sort.tick
     bubble_sort.list.should == [0, 1]
   end
 
-  xit "sorts a three element array" do
+  it "sorts a four element array" do
     bubble_sort = BubbleSort.new([4, 3, 2, 1])
     bubble_sort.tick
     bubble_sort.list.should == [3, 4, 2, 1]
@@ -27,6 +28,12 @@ describe BubbleSort do
     bubble_sort.tick
     bubble_sort.list.should == [2, 1, 3, 4]
     bubble_sort.tick
+    bubble_sort.list.should == [1, 2, 3, 4]
+  end
+
+  it "sorts an entire list" do
+    bubble_sort = BubbleSort.new([4, 3, 2, 1])
+    bubble_sort.sort
     bubble_sort.list.should == [1, 2, 3, 4]
   end
 end
