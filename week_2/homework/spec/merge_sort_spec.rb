@@ -1,4 +1,5 @@
 require 'rspec'
+require 'pry'
 require 'merge_sort'
 require 'scoring_array'
 
@@ -8,7 +9,7 @@ describe MergeSort do
   end
 
   describe "merge" do
-    xit "merges two arrays" do
+    it "merges two arrays" do
       left = ScoringArray.from_array([1, 5])
       right = ScoringArray.from_array([4, 10])
       merged = MergeSort.merge(left, right)
@@ -17,7 +18,7 @@ describe MergeSort do
   end
 
   describe "sort" do
-    xit "sorts an array" do
+    it "sorts an array" do
       to_sort = ScoringArray.from_array([7,2,5,4,9,1,6,74,0])
       sorted = [0, 1, 2, 4, 5, 6, 7, 9, 74]
       MergeSort.sort(to_sort).should == sorted
@@ -29,7 +30,7 @@ describe MergeSort do
   end
 
   describe "convergence" do
-    xit "time / (n*log(n)) converges" do
+    it "time / (n*log(n)) converges" do
       current_length = 2
       nth_try = 0
       last_ratio = nil
