@@ -4,10 +4,11 @@
 
 require 'set'
 require 'phone_number_search'
+require 'pry'
 
 describe PhoneNumberSearch do
   describe ".build_tree" do
-    xit "builds a tree representing potential words" do
+    it "builds a tree representing potential words" do
       phone_number = [2,3]
       tree = PhoneNumberSearch.build_tree(phone_number)
       tree.children.count.should == 3
@@ -21,7 +22,7 @@ describe PhoneNumberSearch do
   end
 
   describe ".enumerate_strings" do
-    xit "enumerates the potential strings of a phone number" do
+    it "enumerates the potential strings of a phone number" do
       phone_number = [2,3]
       PhoneNumberSearch.enumerate_strings(phone_number).should =~ [
         "", "a", "b", "c", "ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"
@@ -34,22 +35,26 @@ describe PhoneNumberSearch do
       @dictionary = Set.new(["bean", "beans", "skills", "kills"])
     end
 
-    xit "knows when a string is not made up of any legal words" do
+    it "knows when a string is not made up of any legal words" do
       expect(PhoneNumberSearch.subwords_of("ixjlkwifh", @dictionary)).to eq([])
     end
 
-    xit "knows when a string is made up of a repeated word" do
+    it "doesn't include subwords unless the whole composite is made of subwords" do
+      expect(PhoneNumberSearch.subwords_of("beanixjlkwifh", @dictionary)).to eq([])
+    end
+
+    it "knows when a string is made up of a repeated word" do
       expect(PhoneNumberSearch.subwords_of("beanbean", @dictionary)).to eq([["bean", "bean"]])
     end
 
-    xit "knows when a string is made up of two words" do
+    it "knows when a string is made up of two words" do
       expect(PhoneNumberSearch.subwords_of("beanskills", @dictionary)).to eq([
                                                                              ["bean", "skills"],
                                                                              ["beans", "kills"]
       ])
     end
 
-    xit "knows when a string is made up of many words" do
+    it "knows when a string is made up of many words" do
       expect(PhoneNumberSearch.subwords_of("beanbeanbeansbeanbean", @dictionary)).to eq([
         ["bean", "bean", "beans", "bean", "bean"]
       ])
@@ -57,7 +62,7 @@ describe PhoneNumberSearch do
   end
 
   describe "coup de gras" do
-    xit 'finds word combinations for a phone number' do
+    it 'finds word combinations for a phone number' do
       dictionary = Set.new(["user", "uby", "use", "ruby"])
       breakdowns = PhoneNumberSearch.find_word_breakdowns([
         8, 7, 3, 7, 8, 2, 9
